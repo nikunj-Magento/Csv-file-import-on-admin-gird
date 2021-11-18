@@ -1,0 +1,53 @@
+<div class="message message-error error" id="error-msg"></div>
+<div class="message message-success success" id="success-msg"></div>
+
+<label>
+    Barcode Import CSV File
+</label>
+<form id="upload_csv" method="post" enctype="multipart/form-data">  
+    <input id="import_csv" type="file" name="import_csv" name="import_csvfile">
+    <button type="submit" name="submit" id="submit" class="primary btn_save_email"> Submit</button>
+</form>  
+<label>
+    <a href="<?php echo $block->getBaseUrl() . 'pub/static/adminhtml/Magento/backend/en_US/Barcode_Management/css/barcode.csv'; ?>">Download Sample File</a>
+</label>
+
+
+<script>
+    require(['jquery'], function () {
+        jQuery(document).ready(function () {
+            jQuery('#upload_csv').on("submit", function (e) {
+                e.preventDefault(); //form will not submitted  
+                jQuery.ajax({
+                    url: "<?php echo $block->getBaseUrl() . 'barcodecsv/index/importcsvfile'; ?>",
+                    method: "POST",
+                    data: new FormData(this),
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    datatype: "json",
+                    showLoader: true,
+                    success: function (data) {
+                        var datas = JSON.parse(data)
+                        console.log(datas);
+                        if (datas.success == 1) {
+                            jQuery('#success-msg').html(datas.message).show();
+                            jQuery('#upload_csv')[0].reset();
+                            jQuery('.loading-mask').hide();
+
+                            window.setTimeout(function () {
+                                window.location.href = "<?php echo $this->getUrl('barcode_management/index/index'); ?>"
+                            }, 5000);
+
+                        } else {
+                            jQuery('.loading-mask').hide();
+                            jQuery('#upload_csv')[0].reset();
+                            jQuery('#error-msg').html(datas.message).show();
+
+                        }
+                    }
+                })
+            });
+        });
+    });
+</script>

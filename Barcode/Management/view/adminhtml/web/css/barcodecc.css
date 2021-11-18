@@ -1,0 +1,6 @@
+div#error-msg{
+	display:none; 
+}
+div#success-msg{
+	display:none;
+}

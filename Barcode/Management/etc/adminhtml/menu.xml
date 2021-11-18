@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Barcode_Management::manager" title="Barcode" module="Barcode_Management" sortOrder="10" resource="Barcode_Management::manager" />
+        <add id="Barcode_Management::add_row" title="Barcode Manager" module="Barcode_Management" sortOrder="20" parent="Barcode_Management::manager" action="barcode_management/index" resource="Barcode_Management::add_row"/>
+        <add id="Barcode_Management::index" title="Barcode Csv File Import" module="Barcode_Management" sortOrder="10" action="barcode_management/add" resource="Barcode_Management::index" parent="Barcode_Management::manager"/>
+    </menu>
+</config>
